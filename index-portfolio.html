@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stelio Gouveia — Software Engineer & Builder</title>
+    <meta name="description" content="Stelio Gouveia — software engineer, builder of things. Selected work, writing, and ways to get in touch.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f7fa;
+            --surface: #ffffff;
+            --ink: #0a1929;
+            --ink-2: #355063;
+            --ink-3: #8aa1b4;
+            --line: #d8e3ec;
+            --sea-deep: #0a2540;
+            --sea: #1e6091;
+            --sea-light: #4a90c2;
+            --foam: #e8f4f8;
+            --accent: #e76f51;
+            --radius: 14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Nav ===== */
+        nav.top {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px clamp(20px, 4vw, 56px);
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(244, 247, 250, 0.7);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        nav.top.scrolled { border-bottom-color: var(--line); }
+        nav .brand {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 22px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+        nav .brand::after { content: '.'; color: var(--accent); }
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        nav ul a {
+            color: var(--ink-2);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        nav ul a:hover { color: var(--accent); }
+
+        /* ===== Hero ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 clamp(20px, 4vw, 56px);
+            overflow: hidden;
+            background: linear-gradient(180deg, #e8f4f8 0%, #f4f7fa 100%);
+        }
+
+        .hero-ocean {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 35%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .hero-ocean svg {
+            position: absolute;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+        }
+        .wave-a { animation: drift 22s linear infinite; opacity: 0.45; }
+        .wave-b { animation: drift 16s linear infinite reverse; opacity: 0.65; }
+        .wave-c { animation: drift 12s linear infinite; opacity: 0.9; }
+
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(50%); }
+        }
+
+        .hero-inner {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+            padding-top: 60px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            margin-bottom: 28px;
+        }
+        .eyebrow .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(231, 111, 81, 0.18);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(231, 111, 81, 0.18); }
+            50% { box-shadow: 0 0 0 8px rgba(231, 111, 81, 0.05); }
+        }
+
+        h1.display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 300;
+            font-size: clamp(48px, 8vw, 128px);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin: 0 0 24px;
+            color: var(--sea-deep);
+            font-variation-settings: "SOFT" 50;
+        }
+        h1.display em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: clamp(16px, 1.4vw, 20px);
+            color: var(--ink-2);
+            max-width: 560px;
+            margin: 0 0 40px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 22px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: var(--sea-deep);
+            color: white;
+        }
+        .btn-primary:hover { background: var(--sea); transform: translateY(-2px); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border-color: var(--line);
+        }
+        .btn-ghost:hover { border-color: var(--sea-deep); }
+
+        /* ===== Sections ===== */
+        section {
+            padding: clamp(80px, 12vw, 140px) clamp(20px, 4vw, 56px);
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 13px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin-bottom: 40px;
+        }
+        .section-label::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--ink-3);
+        }
+
+        h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 300;
+            font-size: clamp(32px, 4.5vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin: 0 0 24px;
+            color: var(--sea-deep);
+        }
+        h2 em { font-style: italic; color: var(--accent); }
+
+        /* ===== About ===== */
+        .about {
+            background: var(--surface);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .about-bio p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--ink-2);
+            margin: 0 0 18px;
+        }
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .stack-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: 15px;
+        }
+        .stack-row span:first-child {
+            color: var(--ink-3);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 12px;
+        }
+        .stack-row span:last-child { color: var(--ink); font-weight: 500; }
+
+        /* ===== Work ===== */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            transition: all 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--sea-light);
+            box-shadow: 0 24px 48px -24px rgba(10, 37, 64, 0.18);
+        }
+        .card-cover {
+            aspect-ratio: 4 / 3;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-cover.c1 { background: linear-gradient(135deg, #1e6091, #4a90c2); }
+        .card-cover.c2 { background: linear-gradient(135deg, #0a2540, #355063); }
+        .card-cover.c3 { background: linear-gradient(135deg, #e76f51, #f4a261); }
+        .card-cover.c4 { background: linear-gradient(135deg, #2a9d8f, #264653); }
+
+        .card-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%);
+        }
+        .card-cover .tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255,255,255,0.92);
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 999px;
+            z-index: 1;
+        }
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+        .card h3 {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-size: 22px;
+            margin: 0;
+            color: var(--ink);
+        }
+        .card p {
+            margin: 0;
+            color: var(--ink-2);
+            font-size: 15px;
+        }
+        .card-meta {
+            margin-top: auto;
+            padding-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--ink-3);
+        }
+
+        /* ===== Contact ===== */
+        .contact {
+            background: var(--sea-deep);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact h2 { color: white; }
+        .contact h2 em { color: #ffd166; }
+        .contact .section-label { color: rgba(255,255,255,0.55); }
+        .contact .section-label::before { background: rgba(255,255,255,0.55); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 80px;
+            align-items: end;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 16px;
+        }
+        .contact-links a {
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            transition: padding 0.3s ease;
+        }
+        .contact-links a:hover {
+            padding-left: 8px;
+            color: #ffd166;
+        }
+
+        .contact-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            background:
+                radial-gradient(ellipse at 80% 20%, rgba(255, 209, 102, 0.6), transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(74, 144, 194, 0.6), transparent 50%);
+            pointer-events: none;
+        }
+
+        footer.bottom {
+            padding: 28px clamp(20px, 4vw, 56px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            background: var(--sea-deep);
+            position: relative;
+        }
+
+        @media (max-width: 760px) {
+            nav ul { gap: 18px; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        /* ===== Reveal on scroll ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .wave-a, .wave-b, .wave-c { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top" id="nav">
+        <a href="#top" class="brand">stelio</a>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="top">
+        <div class="hero-ocean">
+            <svg class="wave-a" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,40 C200,80 400,0 600,40 C800,80 1000,0 1200,40 L1200,120 L0,120 Z" fill="#4a90c2"/>
+            </svg>
+            <svg class="wave-b" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,60 C300,100 500,20 700,60 C900,100 1100,20 1200,60 L1200,120 L0,120 Z" fill="#1e6091"/>
+            </svg>
+            <svg class="wave-c" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,80 C250,120 450,40 700,80 C950,120 1100,40 1200,80 L1200,120 L0,120 Z" fill="#0a2540"/>
+            </svg>
+        </div>
+
+        <div class="hero-inner">
+            <div class="eyebrow"><span class="dot"></span> Available for new work · 2026</div>
+            <h1 class="display">
+                Hi, I'm Stelio.<br>
+                I <em>build</em> software.
+            </h1>
+            <p class="hero-sub">
+                Engineer, generalist, occasional designer. I help small teams ship things that feel obvious in hindsight — products, prototypes, and the plumbing in between.
+            </p>
+            <div class="hero-ctas">
+                <a class="btn btn-primary" href="#work">See selected work →</a>
+                <a class="btn btn-ghost" href="mailto:stelio@stel.io">stelio@stel.io</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+        <div class="section-inner">
+            <div class="section-label">About</div>
+            <div class="about-grid">
+                <div class="about-bio reveal">
+                    <h2>Software that <em>stays out of the way</em>.</h2>
+                    <p>
+                        I've spent the last decade building things on the web — backends, frontends, prototypes, the occasional CLI. I like the part of the job where the messy idea gets resolved into a clean interaction.
+                    </p>
+                    <p>
+                        Currently based in Cape Town, working with founders and product teams on early-stage products, internal tools, and the kind of "we should probably rebuild this" projects nobody wants to scope.
+                    </p>
+                </div>
+                <div class="stack reveal">
+                    <div class="stack-row"><span>Based in</span><span>Cape Town, ZA</span></div>
+                    <div class="stack-row"><span>Tools</span><span>TypeScript · Python · Go</span></div>
+                    <div class="stack-row"><span>Stack</span><span>React · Postgres · AWS</span></div>
+                    <div class="stack-row"><span>Available</span><span>Contract · Advisory</span></div>
+                    <div class="stack-row"><span>Currently</span><span>Shipping quietly</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Work ===== -->
+    <section id="work">
+        <div class="section-inner">
+            <div class="section-label">Selected Work</div>
+            <h2 class="reveal">A few things I've built recently.</h2>
+            <p style="color: var(--ink-2); margin: -8px 0 56px; max-width: 560px;" class="reveal">
+                Placeholders for now — swap these out for real case studies, links, screenshots.
+            </p>
+
+            <div class="work-grid">
+                <article class="card reveal">
+                    <div class="card-cover c1"><span class="tag">2026 · Product</span></div>
+                    <div class="card-body">
+                        <h3>Project Atlas</h3>
+                        <p>A planning tool for distributed product teams. Real-time collaboration, opinionated defaults, no meetings required.</p>
+                        <div class="card-meta"><span>Lead engineer</span><span>→</span></div>
+                    </div>
+                </article>
+
+                <article class="card reveal">
+                    <div class="card-cover c2"><span class="tag">2025 · Infra</span></div>
+                    <div class="card-body">
+                        <h3>Tide</h3>
+                        <p>Internal data platform. Turned a tangle of cron jobs and spreadsheets into a single source of truth for a 40-person team.</p>
+                        <div class="card-meta"><span>Solo build</span><span>→</span></div>
+                    </div>
+                </article>
+
+                <article class="card reveal">
+                    <div class="card-cover c3"><span class="tag">2025 · Prototype</span></div>
+                    <div class="card-body">
+                        <h3>Coastline</h3>
+                        <p>An experiment in local-first note-taking. CRDTs, no servers, and a focus on the writing surface itself.</p>
+                        <div class="card-meta"><span>Side project</span><span>→</span></div>
+                    </div>
+                </article>
+
+                <article class="card reveal">
+                    <div class="card-cover c4"><span class="tag">2024 · Advisory</span></div>
+                    <div class="card-body">
+                        <h3>Harbor</h3>
+                        <p>Helped a seed-stage team go from "Figma and vibes" to a v1 you could actually ship. Architecture, hiring, the first ten pages.</p>
+                        <div class="card-meta"><span>Technical advisor</span><span>→</span></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="contact" id="contact">
+        <div class="contact-bg"></div>
+        <div class="section-inner" style="position: relative;">
+            <div class="section-label">Get in touch</div>
+            <div class="contact-grid">
+                <h2 class="reveal">
+                    Working on something interesting?<br>
+                    <em>Let's talk.</em>
+                </h2>
+                <div class="contact-links reveal">
+                    <a href="mailto:stelio@stel.io">stelio@stel.io <span>→</span></a>
+                    <a href="https://www.linkedin.com/in/stelio-gouveia-263010a" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
+                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bottom">
+        <span>© <span id="year"></span> Stelio Gouveia</span>
+        <span>Built with care · Cape Town</span>
+    </footer>
+
+    <script>
+        // nav border on scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // reveal on intersect
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

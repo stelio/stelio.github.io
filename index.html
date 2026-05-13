@@ -1,102 +1,650 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stelio Gouveia</title>
-    <style>
-        @keyframes wave {
-            0% { transform: translateX(0) translateZ(0) scaleY(1); }
-            25% { transform: translateX(-25%) translateZ(0) scaleY(0.75); }
-            50% { transform: translateX(-50%) translateZ(0) scaleY(1); }
-            75% { transform: translateX(-25%) translateZ(0) scaleY(1.25); }
-            100% { transform: translateX(0) translateZ(0) scaleY(1); }
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(180deg, #e6f3ff 0%, #b3e0ff 100%);
-        }
-        .ocean {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-        }
-        .wave {
-            position: absolute;
-            top: 35%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            border-radius: 40%;
-            animation: wave 20s infinite cubic-bezier(0.55, 0.5, 0.45, 0.5);
-        }
-        .wave:nth-child(1) {
-            background: linear-gradient(180deg, rgba(0,102,204,0.1) 0%, rgba(0,128,255,0.3) 100%);
-            animation-duration: 22s;
-        }
-        .wave:nth-child(2) {
-            background: linear-gradient(180deg, rgba(0,102,204,0.2) 0%, rgba(0,128,255,0.4) 100%);
-            animation-duration: 18s;
-            animation-delay: -5s;
-        }
-        .wave:nth-child(3) {
-            background: linear-gradient(180deg, rgba(0,128,255,0.3) 0%, rgba(0,153,255,0.5) 100%);
-            animation-duration: 16s;
-            animation-delay: -2s;
-        }
-        .wave:nth-child(4) {
-            background: linear-gradient(180deg, rgba(0,128,255,0.4) 0%, rgba(0,153,255,0.6) 100%);
-            animation-duration: 14s;
-            animation-delay: -7s;
-        }
-        .wave:nth-child(5) {
-            background: linear-gradient(180deg, rgba(0,153,255,0.5) 0%, rgba(0,179,255,0.7) 100%);
-            animation-duration: 12s;
-            animation-delay: -3s;
-        }
-        .content {
-            text-align: left;
-            padding-left: 40px;
-            z-index: 1;
-        }
-        h1 {
-            color: #003366;
-            font: bold 140px/130px Arial, Helvetica, sans-serif;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
-        }
-        a {
-            color: #003366;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #0066cc;
-        }
-    </style>
-</head>
-<body>
-    <div class="ocean">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
-    <div class="content">
-        <h1>
-            Hi,<br>
-            <a href="https://www.linkedin.com/in/stelio-gouveia-263010a" target="_blank" rel="noopener noreferrer">I build software.</a><br>
-            <a href="mailto:stelio@stel.io">Let's talk.</a>
-        </h1>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stelio Gouveia — I build software.</title>
+        <meta name="description" content="Stelio Gouveia. I build software." />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --sky-top: #0a1929;
+                --sky-mid: #133b5c;
+                --sky-low: #1e6091;
+                --horizon: #4a90c2;
+                --foam: #e8f4f8;
+                --moon: #f5e6d3;
+                --ink: #f8fafc;
+                --ink-dim: rgba(248, 250, 252, 0.65);
+                --accent: #ffd166;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+                background: var(--sky-top);
+                color: var(--ink);
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                font-weight: 300;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .scene {
+                position: fixed;
+                inset: 0;
+                background:
+                    radial-gradient(
+                        ellipse 80% 50% at 70% 20%,
+                        rgba(255, 209, 102, 0.12),
+                        transparent 60%
+                    ),
+                    linear-gradient(
+                        180deg,
+                        var(--sky-top) 0%,
+                        var(--sky-mid) 35%,
+                        var(--sky-low) 60%,
+                        var(--horizon) 70%
+                    );
+            }
+
+            .stars {
+                position: absolute;
+                inset: 0;
+                background-image:
+                    radial-gradient(
+                        1px 1px at 12% 18%,
+                        rgba(255, 255, 255, 0.9),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 28% 8%,
+                        rgba(255, 255, 255, 0.7),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 45% 22%,
+                        rgba(255, 255, 255, 0.5),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1.5px 1.5px at 62% 12%,
+                        rgba(255, 255, 255, 0.9),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 78% 28%,
+                        rgba(255, 255, 255, 0.6),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 88% 6%,
+                        rgba(255, 255, 255, 0.8),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 8% 32%,
+                        rgba(255, 255, 255, 0.5),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 36% 38%,
+                        rgba(255, 255, 255, 0.4),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1.5px 1.5px at 92% 18%,
+                        rgba(255, 255, 255, 0.7),
+                        transparent
+                    );
+                background-size: 100% 60%;
+                background-repeat: no-repeat;
+                opacity: 0.9;
+                animation: twinkle 6s ease-in-out infinite;
+            }
+
+            @keyframes twinkle {
+                0%,
+                100% {
+                    opacity: 0.9;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .sky {
+                position: absolute;
+                inset: 0;
+                transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+                will-change: transform;
+            }
+
+            .moon {
+                position: absolute;
+                top: 12%;
+                right: 14%;
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle at 35% 35%,
+                    #fffaf0,
+                    var(--moon) 60%,
+                    #d4b896 100%
+                );
+                box-shadow:
+                    0 0 40px rgba(245, 230, 211, 0.4),
+                    0 0 80px rgba(245, 230, 211, 0.2),
+                    inset -8px -8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .crest-glow {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 53%;
+                height: 60px;
+                background: linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(245, 230, 211, 0.06) 50%,
+                    transparent
+                );
+                filter: blur(14px);
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .moon::before,
+            .moon::after {
+                content: "";
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.06);
+            }
+            .moon::before {
+                width: 18px;
+                height: 18px;
+                top: 25%;
+                left: 30%;
+            }
+            .moon::after {
+                width: 12px;
+                height: 12px;
+                top: 55%;
+                left: 55%;
+            }
+
+            .ocean {
+                position: absolute;
+                inset: 55% 0 0 0;
+                overflow: hidden;
+            }
+
+            .wave {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 200%;
+                height: 100%;
+                display: flex;
+                will-change: transform;
+            }
+
+            .wave svg {
+                display: block;
+                width: 50%;
+                height: 100%;
+                flex: 0 0 50%;
+            }
+
+            .wave-1 {
+                animation: drift 32s linear infinite;
+                opacity: 0.55;
+            }
+            .wave-2 {
+                animation: drift 24s linear infinite reverse;
+                opacity: 0.7;
+                bottom: -10px;
+                animation-delay: -5s;
+            }
+            .wave-3 {
+                animation: drift 18s linear infinite;
+                opacity: 0.85;
+                bottom: -20px;
+                animation-delay: -2s;
+            }
+            .wave-4 {
+                animation: drift 14s linear infinite reverse;
+                opacity: 1;
+                bottom: -30px;
+                animation-delay: -7s;
+            }
+
+            @keyframes drift {
+                from {
+                    transform: translate3d(0, 0, 0);
+                }
+                to {
+                    transform: translate3d(-50%, 0, 0);
+                }
+            }
+
+            .moonpath {
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 200px;
+                height: 45%;
+                background: linear-gradient(
+                    180deg,
+                    rgba(245, 230, 211, 0.25),
+                    transparent 90%
+                );
+                filter: blur(8px);
+                pointer-events: none;
+            }
+
+            .content {
+                position: relative;
+                z-index: 5;
+                height: 100%;
+                display: grid;
+                grid-template-rows: auto 1fr auto;
+                padding: clamp(24px, 4vw, 56px);
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 13px;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--ink-dim);
+            }
+
+            .mark {
+                font-family: "Fraunces", serif;
+                font-weight: 500;
+                font-style: italic;
+                font-size: 22px;
+                letter-spacing: 0;
+                text-transform: none;
+                color: var(--ink);
+            }
+
+            .mark::after {
+                content: ".";
+                color: var(--accent);
+            }
+
+            .meta {
+                font-variant-numeric: tabular-nums;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                max-width: 1000px;
+            }
+
+            .eyebrow {
+                font-size: 13px;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 28px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            .eyebrow::before {
+                content: "";
+                width: 32px;
+                height: 1px;
+                background: var(--accent);
+            }
+
+            h1 {
+                font-family: "Fraunces", Georgia, serif;
+                font-weight: 300;
+                font-size: clamp(56px, 9vw, 144px);
+                line-height: 0.95;
+                letter-spacing: -0.03em;
+                margin: 0 0 32px;
+                font-variation-settings:
+                    "SOFT" 50,
+                    "WONK" 1;
+            }
+
+            h1 .line {
+                display: block;
+            }
+            h1 em {
+                font-style: italic;
+                font-weight: 400;
+                color: var(--accent);
+            }
+
+            .links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 32px;
+                margin-top: 16px;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .link {
+                position: relative;
+                color: var(--ink);
+                text-decoration: none;
+                padding: 4px 0;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                transition: color 0.3s ease;
+            }
+
+            .link::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 1px;
+                background: currentColor;
+                transform: scaleX(0.3);
+                transform-origin: left;
+                transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            .link:hover {
+                color: var(--accent);
+            }
+            .link:hover::after {
+                transform: scaleX(1);
+            }
+
+            .link .arrow {
+                display: inline-block;
+                transition: transform 0.3s ease;
+            }
+            .link:hover .arrow {
+                transform: translate(3px, -3px);
+            }
+
+            footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                font-size: 12px;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                color: var(--ink-dim);
+            }
+
+            .footnote {
+                max-width: 280px;
+                line-height: 1.6;
+            }
+
+            .clock {
+                font-family: "Fraunces", serif;
+                font-variant-numeric: tabular-nums;
+                font-size: 14px;
+                letter-spacing: 0.04em;
+                text-transform: none;
+            }
+
+            /* Subtle noise overlay */
+            .noise {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                opacity: 0.04;
+                mix-blend-mode: overlay;
+                z-index: 10;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            }
+
+            @media (max-width: 640px) {
+                .moon {
+                    width: 60px;
+                    height: 60px;
+                    top: 10%;
+                    right: 10%;
+                }
+                .eyebrow {
+                    margin-bottom: 20px;
+                }
+                footer {
+                    flex-direction: column;
+                    gap: 16px;
+                    align-items: flex-start;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .wave,
+                .stars {
+                    animation: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="scene">
+            <div class="sky" id="sky">
+                <div class="stars"></div>
+                <div class="moon"></div>
+                <div class="moonpath"></div>
+            </div>
+            <div class="crest-glow"></div>
+
+            <div class="ocean">
+                <div class="wave wave-1">
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,60 C200,100 400,20 600,60 C800,100 1000,20 1200,60 L1200,120 L0,120 Z"
+                            fill="#1e6091"
+                        />
+                    </svg>
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,60 C200,100 400,20 600,60 C800,100 1000,20 1200,60 L1200,120 L0,120 Z"
+                            fill="#1e6091"
+                        />
+                    </svg>
+                </div>
+                <div class="wave wave-2">
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,50 C300,90 500,10 700,50 C900,90 1100,10 1200,50 L1200,120 L0,120 Z"
+                            fill="#164e7a"
+                        />
+                    </svg>
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,50 C300,90 500,10 700,50 C900,90 1100,10 1200,50 L1200,120 L0,120 Z"
+                            fill="#164e7a"
+                        />
+                    </svg>
+                </div>
+                <div class="wave wave-3">
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,70 C150,110 350,30 600,70 C850,110 1050,30 1200,70 L1200,120 L0,120 Z"
+                            fill="#0f3a5c"
+                        />
+                    </svg>
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,70 C150,110 350,30 600,70 C850,110 1050,30 1200,70 L1200,120 L0,120 Z"
+                            fill="#0f3a5c"
+                        />
+                    </svg>
+                </div>
+                <div class="wave wave-4">
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,80 C250,120 450,40 700,80 C950,120 1100,40 1200,80 L1200,120 L0,120 Z"
+                            fill="#0a2540"
+                        />
+                    </svg>
+                    <svg
+                        viewBox="0 0 1200 120"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M0,80 C250,120 450,40 700,80 C950,120 1100,40 1200,80 L1200,120 L0,120 Z"
+                            fill="#0a2540"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <header>
+                <span></span>
+                <span class="meta">Cape Town · 33.9°S 18.4°E</span>
+            </header>
+
+            <main>
+                <div class="eyebrow">Saltwater-adjacent shipper</div>
+                <h1>
+                    <span class="line">Hi, I'm Stelio.</span>
+                    <span class="line">I <em>build</em> software.</span>
+                </h1>
+                <div class="links">
+                    <a
+                        class="link"
+                        href="https://www.linkedin.com/in/stelio-gouveia-263010a"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        LinkedIn <span class="arrow">↗</span>
+                    </a>
+                    <a class="link" href="mailto:stelio@stel.io">
+                        stelio@stel.io <span class="arrow">→</span>
+                    </a>
+                </div>
+            </main>
+
+            <footer>
+                <div class="footnote">
+                    Engineer, generalist, occasional designer. I help teams ship
+                    things that feel obvious in hindsight — products,
+                    prototypes, and everything in between.
+                </div>
+                <div class="clock" id="clock">—</div>
+            </footer>
+        </div>
+
+        <div class="noise"></div>
+
+        <script>
+            // Live clock (Cape Town)
+            const clock = document.getElementById("clock");
+            function tick() {
+                const d = new Date();
+                const opts = {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "Africa/Johannesburg",
+                    hour12: false,
+                };
+                clock.textContent =
+                    d.toLocaleTimeString("en-GB", opts) + " SAST";
+            }
+            tick();
+            setInterval(tick, 30000);
+
+            // Subtle parallax on the night sky
+            const sky = document.getElementById("sky");
+            const reduceMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            if (!reduceMotion && sky) {
+                let tx = 0,
+                    ty = 0,
+                    cx = 0,
+                    cy = 0,
+                    raf;
+                const handle = (e) => {
+                    const x = e.clientX / window.innerWidth - 0.5;
+                    const y = e.clientY / window.innerHeight - 0.5;
+                    tx = x * -14;
+                    ty = y * -8;
+                    if (!raf) raf = requestAnimationFrame(loop);
+                };
+                const loop = () => {
+                    cx += (tx - cx) * 0.08;
+                    cy += (ty - cy) * 0.08;
+                    sky.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
+                    if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+                        raf = requestAnimationFrame(loop);
+                    } else {
+                        raf = null;
+                    }
+                };
+                window.addEventListener("pointermove", handle, {
+                    passive: true,
+                });
+            }
+        </script>
+    </body>
 </html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stelio Gouveia</title>
+    <style>
+        @keyframes wave {
+            0% { transform: translateX(0) translateZ(0) scaleY(1); }
+            25% { transform: translateX(-25%) translateZ(0) scaleY(0.75); }
+            50% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+            75% { transform: translateX(-25%) translateZ(0) scaleY(1.25); }
+            100% { transform: translateX(0) translateZ(0) scaleY(1); }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(180deg, #e6f3ff 0%, #b3e0ff 100%);
+        }
+        .ocean {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+        .wave {
+            position: absolute;
+            top: 35%;
+            left: -100%;
+            width: 200%;
+            height: 200%;
+            border-radius: 40%;
+            animation: wave 20s infinite cubic-bezier(0.55, 0.5, 0.45, 0.5);
+        }
+        .wave:nth-child(1) {
+            background: linear-gradient(180deg, rgba(0,102,204,0.1) 0%, rgba(0,128,255,0.3) 100%);
+            animation-duration: 22s;
+        }
+        .wave:nth-child(2) {
+            background: linear-gradient(180deg, rgba(0,102,204,0.2) 0%, rgba(0,128,255,0.4) 100%);
+            animation-duration: 18s;
+            animation-delay: -5s;
+        }
+        .wave:nth-child(3) {
+            background: linear-gradient(180deg, rgba(0,128,255,0.3) 0%, rgba(0,153,255,0.5) 100%);
+            animation-duration: 16s;
+            animation-delay: -2s;
+        }
+        .wave:nth-child(4) {
+            background: linear-gradient(180deg, rgba(0,128,255,0.4) 0%, rgba(0,153,255,0.6) 100%);
+            animation-duration: 14s;
+            animation-delay: -7s;
+        }
+        .wave:nth-child(5) {
+            background: linear-gradient(180deg, rgba(0,153,255,0.5) 0%, rgba(0,179,255,0.7) 100%);
+            animation-duration: 12s;
+            animation-delay: -3s;
+        }
+        .content {
+            text-align: left;
+            padding-left: 40px;
+            z-index: 1;
+        }
+        h1 {
+            color: #003366;
+            font: bold 140px/130px Arial, Helvetica, sans-serif;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+        a {
+            color: #003366;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div class="content">
+        <h1>
+            Hi,<br>
+            <a href="https://www.linkedin.com/in/stelio-gouveia-263010a" target="_blank" rel="noopener noreferrer">I build software.</a><br>
+            <a href="mailto:stelio@stel.io">Let's talk.</a>
+        </h1>
+    </div>
+</body>
+</html>
